@@ -1,8 +1,8 @@
 import React,{Component } from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo'; 
-import {Books} from '../types';
-import {ChildProps,graphql} from "react-apollo";
+// import { Query } from 'react-apollo'; 
+import {Books,Response,InputProps} from '../types';
+import {Query,ChildProps,graphql} from "react-apollo";
 // import { graphql } from 'react-apollo';
 
 //  Idata {
@@ -23,9 +23,9 @@ const GET_BOOKS_QUERY = gql`
     }
   }
 `;
-const withBooks = graphql<{},{books:Books}>(GET_BOOKS_QUERY)
+const withBooks = graphql<InputProps,Response>(GET_BOOKS_QUERY)
 
-class BookList extends Component<ChildProps<{},{books:Books}>,{}>{
+class BookList extends Component<ChildProps<InputProps,Response>,{}>{
     //  displayBooks = () => {
     //   const data:Idata = this.props.data;
     //   if (data.loading) {
@@ -35,8 +35,8 @@ class BookList extends Component<ChildProps<{},{books:Books}>,{}>{
     //  }
 
         render() {
-          console.log(this.props)
-          const {loading,error,books} = this.props.books;
+          console.log('this.props',this.props)
+          const {loading,error,books} = this.props.data;
             if(loading) return <p>Loading</p>;
             if(error) return <p>Error:(</p>;
             return books.map(({id, name}) => (
