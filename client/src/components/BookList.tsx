@@ -1,16 +1,9 @@
 import React,{Component } from 'react';
-import gql from 'graphql-tag';
-// import { Query } from 'react-apollo'; 
+
+import {GET_BOOKS_QUERY} from '../api/query/book'; 
 import {IBooks,Response,InputProps,IApolloData} from '../types';
 import {Query,ChildProps,graphql} from "react-apollo";
-const GET_BOOKS_QUERY = gql`
-  {
-    books {
-      id
-      name
-    }
-  }
-`;
+
 const withBooks = graphql<InputProps,Response>(GET_BOOKS_QUERY)
 
 class BookList extends Component<ChildProps<InputProps,Response>,{}>{
