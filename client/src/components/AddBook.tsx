@@ -3,10 +3,13 @@ import {  ChildProps,graphql,compose  } from 'react-apollo'
 import {GET_AUTHORS,ADD_BOOK_MUTATION,GET_BOOKS_QUERY} from '../api/query/book';
 import {InputProps,IAuthorResponse} from '../types';
 
-
+// 对graphql函数的理解与使用，配置
 const withAddBook = graphql<InputProps,IAuthorResponse>(GET_AUTHORS,{name:'showAuthors'});
 const addBookMutation = graphql<InputProps,IAuthorResponse>(ADD_BOOK_MUTATION,{name:"addBookMutation"});
 
+
+
+// 对childProps泛型中InputProps的相关理解 通graphql泛型函数中的泛型。  外部属性进入该组件，类型检查就是通过InputProps定义类型检查 
 class AddBook extends Component<ChildProps<InputProps,IAuthorResponse>,{}> {
     state= {
         name: '',
@@ -71,4 +74,5 @@ class AddBook extends Component<ChildProps<InputProps,IAuthorResponse>,{}> {
     )
   }
 }
+// 一个组件多个graphql的组合用compose
 export default compose(withAddBook,addBookMutation)(AddBook);
